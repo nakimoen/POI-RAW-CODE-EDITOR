@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>POI RAW CODE</title>
+    <link rel="stylesheet" href="./style/index.css" />
+  </head>
+  <body>
+    <header>
+      <h1>POI 設定・出力 Ver.α0.1.0</h1>
+    </header>
+    <hr />
+    <main>
+      <p>
+        <h3>【はじめに】</h3>
+        本サイトは、igpsports製サイクルコンピュータ(igs630等)のナビ用コースファイル（CNX形式）を<br />
+        テキストベースで「POI・ウェイポイント」を編集するための
+        <b style="color: red"> 該当箇所コード </b>
+        を簡易的に生成することを目的にしています。
+        <br />
+        <b style="color: red">
+          コースファイル全体を生成するものではありません。
+        </b>
+        <br />
+        また、本サイトより生成したコードを使用した際に生じた不利益については、一切責任を負いかねます。何卒ご理解の程をよろしくお願い致します。
+      </p>
+      <hr />
+      <div id="point-wrapper">
+        <h3>ポイント情報</h3>
+        <div>
+          <div>
+            <button onclick="addPoint()">ポイント追加</button>
+          </div>
+          <p>
+            <small>
+              ※位置情報（緯度・経度）は、小数点第８位以下を切り捨て、処理を行います
+            </small>
+          </p>
+        </div>
+        <form id="point-content"><button>出力</button></form>
+      </div>
+      <hr />
+      <div id="output-wrapper">
+        <h3>出力結果</h3>
+        <small>
+          formated with
+          <a href="http://www.eslinstructor.net/vkbeautify/">vkbeautify</a>
+        </small>
+        <pre></pre>
+      </div>
+    </main>
+    <footer>
+      nakimoen.
+      <small>
+        <a href="https://github.com/nakimoen/POI-RAW-CODE-EDITOR">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 16 16"
+            width="16"
+            height="16"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"
+            ></path>
+          </svg>
+          GitHub
+        </a>
+      </small>
+    </footer>
+
+    <template id="point-template">
+      <div class="point-container">
+        <div style="position: relative">
+          <strong class="point-number"></strong>
+          <label>
+            ポイント名
+            <input class="desc" type="text" placeholder="名称" required />
+          </label>
+          <button class="del-button" type="button" onclick="delPoint(this)">
+            削除
+          </button>
+        </div>
+        <br />
+        <label>
+          タイプ
+          <select class="type">
+            <option value="0">⭐ウェイポイント</option>
+            <option value="14">🚩集合場所</option>
+            <option value="7">🍴補給場所</option>
+          </select>
+        </label>
+        <br />
+        <label>
+          経度・緯度(カンマ区切り)
+          <input
+            class="lat-lng"
+            type="text"
+            placeholder="12.1234567, 123.1234567"
+            onchange="validatePosition(this)"
+          />
+        </label>
+        <br />
+        <label>
+          緯度
+          <input
+            class="lat"
+            type="text"
+            placeholder="12.1234567"
+            onchange="trimPosition(this)"
+            pattern="^\d{1,}\.\d{7}$"
+            required
+          />
+        </label>
+        <label>
+          経度
+          <input
+            class="lng"
+            type="text"
+            placeholder="123.1234567"
+            onchange="trimPosition(this)"
+            pattern="^\d{1,}\.\d{7}$"
+            required
+          />
+        </label>
+      </div>
+    </template>
+  </body>
+
+  <script src="./js/vkbeautify.js"></script>
+  <script src="./js/index.js"></script>
+</html>

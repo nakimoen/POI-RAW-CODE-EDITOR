@@ -1,0 +1,46 @@
+body {
+  padding-bottom: 1.5em;
+  counter-reset: point-num 0;
+}
+
+header {
+  width: 100vw;
+}
+
+footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  background-color: lightblue;
+  width: 100vw;
+  text-align: center;
+}
+
+.bordered {
+  border: 1px solid black;
+  padding: 1em;
+}
+
+.point-number::before {
+  counter-increment: point-num 1;
+  content: counter(point-num);
+}
+
+.point-container {
+  margin: 1em;
+  padding: 1em;
+  border: 1px dotted black;
+  border-radius: 2.5em;
+  width: 520px;
+  min-width: 520px;
+  max-width: 520px;
+}
+
+.del-button {
+  position: absolute;
+  right: 0.5em;
+}
+
+input:required {
+  background-color: lightgoldenrodyellow;
+}
