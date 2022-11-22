@@ -1,12 +1,27 @@
 const GROBAL = { imported: undefined };
+
+window.mapController.on('addMarker', (e) => {
+  addPoint(e.leaflet_id, e.latlng);
+});
+window.mapController.on('dragendMarker', (e) => {
+  const id = e.leaflet_id;
+  const pointBox = document.querySelector(
+    '.point-box[data-marker-id ="' + id + '"]'
+  );
+  pointBox.querySelector('.lat').value = e.latlng.lat;
+  pointBox.querySelector('.lng').value = e.latlng.lng;
+});
+
 /**
  *
  * @param {Document} root
  */
 function _parseCNX(root) {
-  function setVal(dom, cl, tag) {
-    document.querySelector('.point-box:last-child input.' + cl).value =
-      dom.querySelector(tag).innerHTML;
+  function getPointValue(pointDom, tag) {
+    return pointDom.querySelector(tag).innerHTML;
+  }
+  function setValueIntoDom(cl, value) {
+    document.querySelector('.point-box:last-child input.' + cl).value = value;
   }
 
   try {
@@ -16,16 +31,33 @@ function _parseCNX(root) {
     GROBAL.imported = root;
 
     document.getElementById('point-container').innerHTML = '';
+    let lastMarker;
     points.forEach((point) => {
-      addPoint();
-      setVal(point, 'lat', 'Lat');
-      setVal(point, 'lng', 'Lng');
-      setVal(point, 'desc', 'Descr');
+      const lat = getPointValue(point, 'Lat');
+      const lng = getPointValue(point, 'Lng');
+      const desc = getPointValue(point, 'Descr');
+      lastMarker = window.mapController.addMarker(lat, lng, {
+        title: desc,
+      }).marker;
+
+      // addPoint(marker.markerId);
+      setValueIntoDom('lat', lat);
+      setValueIntoDom('lng', lng);
+      setValueIntoDom('desc', getPointValue(point, 'Descr'));
       // TODO: in order to get dom, want to use returns of addPoint()
       document.querySelector('.point-box:last-child select.type').value =
         point.querySelector('Type').innerHTML;
     });
+    if (lastMarker) {
+      window.mapController
+        .getMap()
+        .flyTo(
+          new L.LatLng(lastMarker.getLatLng().lat, lastMarker.getLatLng().lng),
+          10
+        );
+    }
   } catch (error) {
+    console.log(error);
     GROBAL.imported = null;
     alert('ファイルインポートに失敗しました。');
   }
@@ -43,6 +75,12 @@ function _codeDresser(codeStr) {
       return '<span class="code-tag-color">' + p1 + '</span>';
     });
 }
+
+document.getElementById('editor-form').addEventListener('submit', function (e) {
+  e.preventDefault();
+  e.stopPropagation();
+  showOutputPoints();
+});
 
 function showOutputPoints() {
   const containers = document.querySelectorAll('.point-box');
@@ -96,7 +134,9 @@ function showOutputPoints() {
  * @param {HTMLElement} self
  */
 function delPoint(self) {
-  self.closest('.point-box').remove();
+  const box = self.closest('.point-box');
+  window.mapController.removeMarker(box.dataset['markerId']);
+  box.remove();
 }
 
 /**
@@ -137,60 +177,43 @@ function toCnxNode(tag) {
   return { root, pointDom: root.querySelector(tag) };
 }
 
+function onPointBoxClick(self) {
+  const id = self.dataset['markerId'];
+  window.mapController.panToMarker(id);
+}
 /**
  *
- * @returns {any}
+ * @param {HTMLInputELement} self
  */
-function addPoint() {
+function onPointTitleChange(self) {
+  const title = self.value;
+  const id = self.closest('.point-box').dataset['markerId'];
+  window.mapController.setMarkerPopupContent(id, title);
+}
+
+/**
+ *
+ * @param {string} markerId
+ * @param {*} latlng
+ * @returns {any|null}
+ */
+function addPoint(markerId, latlng) {
   const templateContent = document.importNode(
     document.querySelector('#point-template').content,
     true
   );
   const container = document.querySelector('#point-container');
+
+  if (markerId) {
+    templateContent.querySelector('.point-box').dataset['markerId'] = markerId;
+  }
+
+  if (latlng) {
+    const lat = latlng.lat;
+    const lng = latlng.lng;
+    templateContent.querySelector('.lat').value = lat;
+    templateContent.querySelector('.lng').value = lng;
+  }
   container.appendChild(templateContent);
   return templateContent;
-}
-
-//TODO:FIX: trimPosition
-/**
- *
- * @param {string} position
- * @returns {string}
- */
-function trimPosition(position) {
-  try {
-    const splited = position.split('.');
-    if (splited.length != 2) {
-      return null;
-    }
-    return [splited[0].trim(), splited[1].trim().substr(0, 7)].join('.');
-  } catch (err) {
-    position.value = null;
-  }
-}
-
-/**
- *
- * @param {HTMLElement} self
- */
-function validatePosition(self) {
-  try {
-    const position = self.value.split(',');
-    if (position.length != 2) {
-      return alert('[0]不正な値です');
-    }
-
-    const lat = trimPosition(position[0]);
-    const lng = trimPosition(position[1]);
-    if (!lat || !lng) {
-      return alert('[1]不正な値です');
-    }
-
-    const container = self.closest('.point-box');
-    self.value = null;
-    container.querySelector('.lat').value = lat;
-    container.querySelector('.lng').value = lng;
-  } catch (error) {
-    alert('[3]不正な値です。');
-  }
 }

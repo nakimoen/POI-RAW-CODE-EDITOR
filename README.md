@@ -1,12 +1,10 @@
 # POI-RAW-CODE-EDITOR
 
-<!-- image or gif -->
-
 ![sample image](./img/sample.png)
 
 ## Overview
 
-Generating POI par for CNX format GPS files.
+Generating POI part for CNX format GPS files.
 
 ## Requirement
 

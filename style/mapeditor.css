@@ -6,16 +6,25 @@ article {
   background-color: rgba(223, 255, 220, 0.771);
 }
 
+#editor {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
 section#point-section {
   width: 100%;
 }
-
+#map {
+  width: 500px;
+  height: 300px;
+}
 .point-number::before {
   counter-increment: point-num 1;
   content: counter(point-num);
 }
 #point-wrapper {
-  width: 100%;
+  width: 500px;
 }
 #point-container {
   width: 100%;
@@ -27,8 +36,8 @@ section#point-section {
   padding: 1em;
   border: 1px dotted black;
   border-radius: 2.5em;
-  width: 500px;
-  min-width: 500px;
+  width: 400px;
+  min-width: 300px;
   max-width: 500px;
 }
 
@@ -49,6 +58,10 @@ pre.code {
   width: 90%;
   height: 85%;
 }
-input:required {
+input:required:not(:read-only) {
   background-color: lightgoldenrodyellow;
+}
+input.lat,
+input.lng {
+  width: 6em;
 }
