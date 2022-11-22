@@ -4,17 +4,19 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CNX POI RAW CODE</title>
-    <link rel="stylesheet" href="./style/common.css" />
-    <link rel="stylesheet" href="./style/index.css" />
+    <title>USAGE | CNX POI RAW CODE</title>
+    <link rel="stylesheet" href="../style/common.css" />
+    <link rel="stylesheet" href="../style/usage.css" />
+    <link rel="stylesheet" href="../style/code.css" />
   </head>
   <body>
     <header>
       <h1>
         iGPSPORT サイコン用CNX<br />―POI 設定・出力<small>ver0.1.2</small>
       </h1>
+
       <div>
-        <a class="current" href="./">
+        <a href="../">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -28,7 +30,7 @@
           </svg>
           【はじめに】
         </a>
-        <a href="./pages/generate.html">
+        <a href="./generate.html">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -45,7 +47,7 @@
           </svg>
           コード生成
         </a>
-        <a href="./pages/usage.html">
+        <a class="current" href="./usage.html">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -67,48 +69,74 @@
     <hr />
     <main>
       <article>
-        <h2>【はじめに】</h2>
+        <h2>生成したPOIコードの使い方</h2>
         <section>
+          <h3 class="section-title">cnxファイルを用意する</h3>
+          <ol>
+            <li>
+              サイコンをUSBでPCに繋いで取り出す。
+              (igs630の場合、「IGS630/iGPSPORT/Courses/」にあります。)
+            </li>
+            <li>スマホアプリからダウンロードする</li>
+            <li>WEB版アプリからダウンロードする</li>
+          </ol>
+        </section>
+        <section>
+          <h3 class="section-title">CNXファイルを開く</h3>
           <p>
-            本サイトは、<strong>igpsports</strong>製サイクルコンピュータ(<strong>igs630</strong>等)のナビ用コースファイル（<strong>CNX形式</strong>）
-            で、「<strong>POI・ウェイポイント</strong>」をテキストベースで編集するための
-            <b style="color: red"> 該当箇所コード </b>
-            を簡易的に生成することを目的にしています。
+            テキストエディタ(メモ帳など)で、ファイルを開きます。
             <br />
-            <b style="color: red">
-              コースファイル全体を生成するものではありません。
-            </b>
+            スマホアプリ等のiGPSPORT製アプリからコースをダウンロードした場合、<br />
+            <span class="hilight"> xxxxxx_[コース名].cnx </span>
+            のようになっています。
+          </p>
+          <div>
+            <img src="../img/CNX_CONTENT.png" />
+          </div>
+        </section>
+        <section>
+          <h3 class="section-title">生成したコードを添付</h3>
+          <pre><code>
+              &lt;Route&gt;
+                ︙
+                ︙
+                ︙
+                &lt;Tracks&gt;.......大量の数値&lt;/Tracks&gt;
+                &lt;Nav /&gt;
+            <strong>
+              ---- この間に挿入します。 ----
+            </strong>
+              &lt;/Route&gt;
+            </code></pre>
+          <div>
+            <img src="../img/CNX_CONTENT_PASTE.png" />
+          </div>
+        </section>
+        <section>
+          <h3 class="section-title">サイコンにファイルを入れる</h3>
+          <p>
+            PCからUSB経由でインストールすることをおすすめします。
             <br />
-            また、本サイトより生成したコードを使用した際に生じた不利益については、一切責任を負いかねます。何卒ご理解の程をよろしくお願い致します。
+            場所：igs630の場合、取り出した時と同様に「IGS630/iGPSPORT/Courses/」へファイルを移す。
+
+            <br />
+            <span style="color: red">
+              <b>
+                WEB版アプリから行わないでください。アップロード時にPOIデータが削除されます。
+              </b>
+            </span>
+            <br />
+            スマホアプリの場合は未検証です。
+            <br />
+            (at 2022/11/20)
           </p>
-        </section>
-        <section>
-          <p class="text-center">
-            <a class="link-button" href="./pages/generate.html">コード生成</a>
-          </p>
-        </section>
-        <section>
-          <h5>【今後の予定】</h5>
-          <p>いつかやれたらいいかも（やる気次第）</p>
-          <ul>
-            <li>PWA化用設定ファイルの設置</li>
-            <li>編集中ファイルの保存・インポート</li>
-            <li>ファイルインポート機能</li>
-          </ul>
-        </section>
-        <section>
-          <h3>リリースノート</h3>
-          <ul>
-            <li>2022/11/22 簡単な使い方ページの追加</li>
-            <li>2022/11/21 WEB公開開始</li>
-          </ul>
         </section>
       </article>
     </main>
     <footer>
       nakimoen.
       <small>
-        <a href="https://twitter.com/hsnakimoen">Twitter</a>
+        <a href="https://twitter.com/hsnakimoen"> Twitter </a>
         <a href="https://github.com/nakimoen/POI-RAW-CODE-EDITOR">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -126,4 +154,7 @@
       </small>
     </footer>
   </body>
+
+  <script src="./js/vkbeautify.js"></script>
+  <script src="./js/index.js"></script>
 </html>

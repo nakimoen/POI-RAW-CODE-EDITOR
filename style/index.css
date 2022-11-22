@@ -1,46 +1,23 @@
-body {
-  padding-bottom: 1.5em;
-  counter-reset: point-num 0;
+article {
+  background-color: rgb(10, 62, 2);
+}
+article > h2,
+article > h3,
+article > h4,
+article > h5,
+article > h4,
+article > span {
+  color: white;
 }
 
-header {
-  width: 100vw;
+section > h3::before,
+section > h5::before {
+  content: '¶';
+  /* background-color: yellow; */
 }
-
-footer {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  background-color: lightblue;
-  width: 100vw;
-  text-align: center;
-}
-
-.bordered {
-  border: 1px solid black;
-  padding: 1em;
-}
-
-.point-number::before {
-  counter-increment: point-num 1;
-  content: counter(point-num);
-}
-
-.point-container {
-  margin: 1em;
-  padding: 1em;
-  border: 1px dotted black;
-  border-radius: 2.5em;
-  width: 520px;
-  min-width: 520px;
-  max-width: 520px;
-}
-
-.del-button {
-  position: absolute;
-  right: 0.5em;
-}
-
-input:required {
-  background-color: lightgoldenrodyellow;
+section .link-button {
+  display: block;
+  width: 95%;
+  height: 95%;
+  background-color: rgb(254, 171, 188);
 }

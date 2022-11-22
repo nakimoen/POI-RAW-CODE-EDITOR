@@ -1,0 +1,84 @@
+:root {
+  --header-text-color: rgb(46, 147, 6);
+  --header-border-color: rgb(255, 155, 112);
+}
+body {
+  /* padding-bottom: 1.5em; */
+  margin-bottom: 1.5em;
+  min-width: 400px;
+  padding: 0.5em;
+}
+
+header {
+  width: 100%;
+  vertical-align: middle;
+  font-size: 24px;
+}
+header a {
+  margin: 3px;
+  margin-bottom: 0;
+  color: var(--header-text-color);
+  text-decoration: none;
+}
+header a.current {
+  border-bottom: 3px solid var(--header-border-color);
+}
+header a > svg {
+  fill: var(--header-text-color);
+}
+
+footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  background-color: lightblue;
+  width: 100vw;
+  text-align: center;
+}
+
+article {
+  border: 10px solid rgb(150, 91, 76);
+  margin: 0 auto;
+  min-width: 580px;
+  min-height: 600px;
+  width: 80%;
+  align-content: center;
+  padding: 1em;
+  box-shadow: 3px 3px 3px gray;
+}
+article > section {
+  min-width: 550px;
+  width: 550px;
+  margin: 10px auto;
+  padding: 0.5em;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 3px 3px 3px gray;
+}
+button {
+  border: none;
+  border-radius: 5px;
+  background-color: dodgerblue;
+  padding: 0.5em;
+  color: white;
+  min-width: 8em;
+}
+.bordered {
+  border: 1px solid black;
+  padding: 1em;
+}
+
+.text-center {
+  text-align: center;
+}
+.link-button {
+  text-decoration: none;
+  margin: 0.5em;
+  border-radius: 10px;
+  padding: 0.5em;
+  background-color: rgb(80, 179, 146);
+  color: white;
+}
+.link-button:hover {
+  background-color: rgb(56, 154, 122);
+}

@@ -1,0 +1,19 @@
+pre:has(code) {
+  margin: 1em 0;
+  padding: 1em;
+  border-radius: 5px;
+  background: #25292f;
+  color: #fff;
+  overflow-x: auto; /* ⭐ */
+  -webkit-overflow-scrolling: touch; /* ⭐ */
+}
+
+code,
+.code {
+  min-height: 10em;
+  height: 10em;
+}
+
+span.code-tag-color {
+  color: skyblue;
+}

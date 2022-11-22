@@ -1,0 +1,16 @@
+body {
+  counter-reset: section-num 0;
+}
+article {
+  background-color: rgba(251, 193, 255, 0.356);
+}
+div:has(img) {
+  text-align: center;
+}
+.section-title::before {
+  counter-increment: section-num 1;
+  content: counter(section-num) '.';
+}
+.hilight {
+  background-color: lightblue;
+}

@@ -1,0 +1,49 @@
+body {
+  counter-reset: point-num 0;
+}
+
+article {
+  background-color: rgba(223, 255, 220, 0.771);
+}
+
+.point-number::before {
+  counter-increment: point-num 1;
+  content: counter(point-num);
+}
+#point-form {
+  width: 100%;
+}
+#point-container {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+.point-box {
+  margin: 1em;
+  padding: 1em;
+  border: 1px dotted black;
+  border-radius: 2.5em;
+  width: 500px;
+  min-width: 500px;
+  max-width: 500px;
+}
+
+.del-button::before {
+  content: '×';
+}
+.del-button {
+  color: white;
+  position: absolute;
+  right: 0.5em;
+  background-color: rgba(255, 46, 46, 0.807);
+  border: none;
+  border-radius: 4px;
+  padding: 0.4em;
+}
+
+pre.code {
+  width: 90%;
+}
+input:required {
+  background-color: lightgoldenrodyellow;
+}
