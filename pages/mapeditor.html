@@ -15,10 +15,14 @@
       integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
       crossorigin=""
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css"
+    />
   </head>
   <body>
     <header>
-      <h1>igs630でPOIを設定しよう<small>ver0.1.5</small></h1>
+      <h1>igs630でPOIを設定しよう<small>ver0.1.6</small></h1>
       <div>
         <a href="../">
           <svg
@@ -74,10 +78,21 @@
     <main>
       <article>
         <h2>コード生成―マップVer 超絶整備中</h2>
+        <section>
+          <h5>開発ステータス・メモ</h5>
+          <ul>
+            <li>
+              GPX,TCXはルートのみの読み込み。(正常に処理されたかは未検証)。POI,
+              ウェイポイントの読み込みについては未定。
+            </li>
+          </ul>
+        </section>
         <section id="file-import-wrapper">
-          <legend>CNXファイルインポート</legend>
-          <input id="import-file-input" type="file" accept=".cnx" />
-          <button id="import-button">インポート</button>
+          <legend>CNX,GPX,TCXファイルインポート</legend>
+          <div>
+            <input id="import-file-input" type="file" accept=".cnx,.gpx,.tcx" />
+            <button id="import-button">インポート</button>
+          </div>
         </section>
         <section id="point-section">
           <h3>ポイント情報</h3>
@@ -211,12 +226,10 @@
 
   <script src="../js/lib/vkbeautify.js"></script>
   <script src="../js/fileReader.js"></script>
-  <script
-    src="//unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-    crossorigin=""
-  ></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-gpx/1.7.0/gpx.min.js"></script>
+
   <script src="../js/mapController.js"></script>
+  <script src="../js/cnxConverter.js"></script>
   <script src="../js/mapeditor.js"></script>
-  <!-- <script src="../js/generate.js"></script> -->
 </html>

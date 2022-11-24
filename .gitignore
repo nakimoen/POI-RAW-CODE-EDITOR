@@ -3,3 +3,6 @@
 # (e.g.)
 # .DS_Store
 # Thumbs.db
+
+local temporary
+node_modules

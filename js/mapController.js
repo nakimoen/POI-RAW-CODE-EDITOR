@@ -63,6 +63,23 @@ class MapController {
     return this.#Markers;
   }
 
+  drawGPX(gpx) {
+    const instance = this;
+    new L.GPX(gpx, {
+      async: true,
+      marker_options: {
+        startIconUrl: '../img/pin-icon-start.png',
+        endIconUrl: '../img/pin-icon-end.png',
+        shadowUrl: false,
+        // iconSize: [32, 32],
+        // iconAnchor: [16, 30],
+      },
+    })
+      .on('loaded', function (e) {
+        instance.#Map.fitBounds(e.target.getBounds());
+      })
+      .addTo(instance.#Map);
+  }
   removeMarker(markerId) {
     const marker = this.#Markers.filter((marker, index) => {
       return marker.markerId == markerId;
@@ -162,7 +179,7 @@ class MapController {
       'https://mt1.google.com/vt/lyrs=r&x={x}&y={y}&z={z}',
       {
         attribution:
-          "<a href='https://developers.google.com/maps/documentation' target='_blank'>Google Map</a>",
+          " <a href='https://github.com/mpetazzoni/leaflet-gpx' target='_blank'>leaflet-gpx</a> | <a href='https://developers.google.com/maps/documentation' target='_blank'>Google Map</a>",
       }
     );
     tileLayer.addTo(map);

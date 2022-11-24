@@ -12,11 +12,12 @@ window.mapController.on('dragendMarker', (e) => {
   pointBox.querySelector('.lng').value = e.latlng.lng;
 });
 
+const _parseTCX = window.tcx2cnx;
 /**
- *
+ * CNX documentから
  * @param {Document} root
  */
-function _parseCNX(root) {
+function _setupRoot(root) {
   function getPointValue(pointDom, tag) {
     return pointDom.querySelector(tag).innerHTML;
   }
@@ -25,6 +26,7 @@ function _parseCNX(root) {
   }
 
   try {
+    // TODO reset map
     const routeDom = root.querySelector('Route');
     const points = routeDom.querySelectorAll('Point');
 
@@ -49,12 +51,7 @@ function _parseCNX(root) {
         point.querySelector('Type').innerHTML;
     });
     if (lastMarker) {
-      window.mapController
-        .getMap()
-        .flyTo(
-          new L.LatLng(lastMarker.getLatLng().lat, lastMarker.getLatLng().lng),
-          10
-        );
+      window.mapController.getMap().flyTo(lastMarker.getLatLng(), 10);
     }
   } catch (error) {
     console.log(error);
@@ -63,9 +60,33 @@ function _parseCNX(root) {
   }
 }
 
-document.querySelector('#import-button').addEventListener('click', function () {
-  startLocalXMLImport('import-file-input', _parseCNX);
-});
+document
+  .querySelector('#import-button')
+  .addEventListener('click', async function () {
+    const filePath = document.querySelector('#import-file-input').value;
+    const format = filePath.substr(-4);
+
+    document.getElementById('point-container').innerHTML = '';
+
+    const serializer = new XMLSerializer();
+
+    if (format.toLowerCase() == '.cnx') {
+      startLocalXMLImport('import-file-input', (e) => {
+        _setupRoot(e.document);
+
+        const gpx = cnx2gpx(e.raw);
+        window.mapController.drawGPX(serializer.serializeToString(gpx));
+      });
+    } else if (format.toLowerCase() == '.tcx') {
+      const tcx = await tcx2cnx('import-file-input');
+      _setupRoot(tcx.root);
+      window.mapController.drawGPX(serializer.serializeToString(tcx.gpx));
+    } else if (format.toLowerCase() == '.gpx') {
+      const gpx = await gpx2cnx('import-file-input');
+      _setupRoot(gpx.root);
+      window.mapController.drawGPX(gpx.gpx);
+    }
+  });
 function _codeDresser(codeStr) {
   return codeStr
     .replaceAll(/</g, '&lt;')
@@ -108,8 +129,12 @@ function showOutputPoints() {
     rootDocument = GROBAL.imported;
     // TODO: grobal.imported
     const routeDom = rootDocument.querySelector('Route');
-    routeDom.removeChild(routeDom.querySelector('PointsCount'));
-    routeDom.removeChild(routeDom.querySelector('Points'));
+    if (routeDom.querySelector('PointsCount')) {
+      routeDom.removeChild(routeDom.querySelector('PointsCount'));
+    }
+    if (routeDom.querySelector('Points')) {
+      routeDom.removeChild(routeDom.querySelector('Points'));
+    }
     const pcount = rootDocument.createElement('PointsCount');
     routeDom.appendChild(pcount);
     routeDom.appendChild(pointsRootDom);
