@@ -10,7 +10,9 @@
   </head>
   <body>
     <header>
-      <h1><strong>igs630</strong>でPOIを設定しよう<small>ver0.1.6</small></h1>
+      <h1>
+        <strong>igs630</strong>でPOIを設定・編集したい<small>ver0.1.6</small>
+      </h1>
       <div>
         <a class="current" href="./">
           <svg
@@ -26,7 +28,7 @@
           </svg>
           【はじめに】
         </a>
-        <a href="./pages/generate.html">
+        <a href="./pages/mapeditor.html">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -71,11 +73,10 @@
           <p>
             <strong>iGPSPORT</strong>
             製サイクルコンピュータ(<strong>igs630</strong>等)のナビ用コースファイルに
-            「<strong>POI</strong>」を設定することを目的にしています。
+            「<strong>POI</strong>・<strong>ウェイポイント</strong>」の設定をするためのサーバーレスWEBアプリです。
             <br />
-            <small>
-              (スマホ苦手マンがPCで設定したいから趣味で制作したアプリ。)
-            </small>
+            2022/11/24現在、公式のスマホアプリでPOI・ウェイポイントの設定ができますが、WEB版は非対応😥
+            スマホ苦手マンがPCで設定したいからと、趣味で制作しています。
           </p>
           <h5>免責</h5>
           <p>
@@ -83,23 +84,17 @@
           </p>
         </section>
         <section>
-          <h3>
-            <strong>iGPSPORT</strong>
-            製サイコンで<strong>POI</strong>設定
-          </h3>
-          <p>
-            現状、公式スマホアプリを利用するしかありません（WEB版は非対応）😥
-            <br />
-            POIはCNX形式ファイル（<strong>iGPSPORT</strong>製サイコン専用仕様）のみ読み込み可能で、
-            サードパーティ製で編集可能なものも存在しません。
-            <br />
-            (2022/11/24現在)
-            <br />
-          </p>
-        </section>
-        <section>
           <p class="text-center">
-            <a class="link-button" href="./pages/generate.html">コード生成</a>
+            <a class="link-button" href="./pages/mapeditor.html">コード生成</a>
+            <br />
+            現在、ヴァリデーション機能（エラーチェック等）は、ほぼ省いている状態です。
+            <br />
+            おかしな挙動が起こる可能性があります。ご了承ください。また、バグ報告等については、
+            <a href="https://twitter.com/nakimoen" target="_blank">
+              @nakimoen
+            </a>
+            までお願いします。
+            <br />
           </p>
         </section>
         <section>
