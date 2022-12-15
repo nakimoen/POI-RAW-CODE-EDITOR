@@ -63,6 +63,9 @@ button {
   color: white;
   min-width: 8em;
 }
+button:hover {
+  background-color: darkblue;
+}
 .bordered {
   border: 1px solid black;
   padding: 1em;

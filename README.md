@@ -32,6 +32,8 @@ visit [THE SITE](http://nakimoen.github.io/POI-RAW-CODE-EDITOR)
 
 Under [MIT](http://nakimoen.github.io/POI-RAW-CODE-EDITOR/LICENSE)
 
-Used/Included packages
+Used
 
+- leaflet
+- leaflet-gpx
 - [vkbeautify](http://www.eslinstructor.net/vkbeautify/)

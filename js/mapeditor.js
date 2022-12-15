@@ -64,6 +64,9 @@ document
   .querySelector('#import-button')
   .addEventListener('click', async function () {
     const filePath = document.querySelector('#import-file-input').value;
+    if (!filePath) {
+      return alert('ファイルが選択されていません。');
+    }
     const format = filePath.substr(-4);
 
     document.getElementById('point-container').innerHTML = '';
@@ -85,6 +88,8 @@ document
       const gpx = await gpx2cnx('import-file-input');
       _setupRoot(gpx.root);
       window.mapController.drawGPX(gpx.gpx);
+    } else {
+      return alert('無効なファイルです');
     }
   });
 function _codeDresser(codeStr) {
@@ -242,3 +247,27 @@ function addPoint(markerId, latlng) {
   container.appendChild(templateContent);
   return templateContent;
 }
+
+document.getElementById('download-button').addEventListener(
+  'click',
+  () => {
+    // TODO: ルートファイル読み込みフラグ管理
+    if (!GROBAL.imported) {
+      return alert('ルートファイルが読み込まれていません');
+    }
+    const filename = document.getElementById('filename-input').value.trim();
+    if (!filename) {
+      return alert('ファイル名が無効です');
+    }
+
+    const text = document.getElementById('code-block').innerText;
+
+    const blob = new Blob([text], { type: 'text/xml' });
+    const link = document.createElement('a');
+    link.download = '_' + filename + '.cnx';
+    link.href = URL.createObjectURL(blob);
+    link.click();
+    URL.revokeObjectURL(link.href);
+  },
+  false
+);

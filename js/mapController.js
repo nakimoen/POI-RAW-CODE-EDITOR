@@ -71,12 +71,11 @@ class MapController {
         startIconUrl: '../img/pin-icon-start.png',
         endIconUrl: '../img/pin-icon-end.png',
         shadowUrl: false,
-        // iconSize: [32, 32],
-        // iconAnchor: [16, 30],
       },
     })
       .on('loaded', function (e) {
-        instance.#Map.fitBounds(e.target.getBounds());
+        const gpx = e.target;
+        instance.#Map.fitBounds(gpx.getBounds());
       })
       .addTo(instance.#Map);
   }
