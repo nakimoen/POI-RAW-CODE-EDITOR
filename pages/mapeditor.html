@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>生成 | CNX POI RAW CODE</title>
+    <title>生成 | CNX POI EDITOR</title>
     <link rel="stylesheet" href="../style/common.css" />
     <link rel="stylesheet" href="../style/mapeditor.css" />
     <link rel="stylesheet" href="../style/code.css" />
@@ -53,39 +53,54 @@
               d="M4.53 12.24a.75.75 0 01-.039 1.06l-2.639 2.45 2.64 2.45a.75.75 0 11-1.022 1.1l-3.23-3a.75.75 0 010-1.1l3.23-3a.75.75 0 011.06.04zm3.979 1.06a.75.75 0 111.02-1.1l3.231 3a.75.75 0 010 1.1l-3.23 3a.75.75 0 11-1.021-1.1l2.639-2.45-2.64-2.45z"
             ></path>
           </svg>
-          コード生成
-        </a>
-        <a href="./usage.html">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            width="24"
-            height="24"
-          >
-            <path
-              d="M10.97 8.265a1.45 1.45 0 00-.487.57.75.75 0 01-1.341-.67c.2-.402.513-.826.997-1.148C10.627 6.69 11.244 6.5 12 6.5c.658 0 1.369.195 1.934.619a2.45 2.45 0 011.004 2.006c0 1.033-.513 1.72-1.027 2.215-.19.183-.399.358-.579.508l-.147.123a4.329 4.329 0 00-.435.409v1.37a.75.75 0 11-1.5 0v-1.473c0-.237.067-.504.247-.736.22-.28.486-.517.718-.714l.183-.153.001-.001c.172-.143.324-.27.47-.412.368-.355.569-.676.569-1.136a.953.953 0 00-.404-.806C12.766 8.118 12.384 8 12 8c-.494 0-.814.121-1.03.265zM13 17a1 1 0 11-2 0 1 1 0 012 0z"
-            ></path>
-            <path
-              fill-rule="evenodd"
-              d="M12 1C5.925 1 1 5.925 1 12s4.925 11 11 11 11-4.925 11-11S18.075 1 12 1zM2.5 12a9.5 9.5 0 1119 0 9.5 9.5 0 01-19 0z"
-            ></path>
-          </svg>
-          使い方
+          CNXコード生成
         </a>
       </div>
     </header>
     <hr />
     <main>
       <article>
-        <h2>コード生成―マップVer 超絶整備中</h2>
+        <h2>CNXコード生成―マップVer 超絶整備中</h2>
+        <section>
+          <h3 class="section-title">サイコンへのファイルインストール</h3>
+          <p>
+            PCからUSB経由でインストールすることをおすすめします。
+            <br />
+            場所：igs630の場合、取り出した時と同様に「IGS630/iGPSPORT/Courses/」へファイルを移す。
+
+            <br />
+            <span style="color: red">
+              <b>
+                WEB版アプリから行わないでください。アップロード時にPOIデータが削除されます。
+              </b>
+            </span>
+            <br />
+            スマホアプリの場合は未検証です。
+            <br />
+            (at 2022/11/20)
+            <br />
+            出力ボタンをクリックすると、CNXファイルの中身がポップアップするので、
+            テキストエディタ（メモ帳など）で新規作成したファイルにコピペしてください。
+            <br />
+            ファイル名は<big
+              ><strong><strong> [ルートID]_[ルート名] </strong></strong></big
+            >
+            の形にしてください。ルートIDは無しでもigs630はルート読みこみできます。
+            <br />
+            例）123455_テストルート, _テストルート
+            <br />
+          </p>
+        </section>
         <section>
           <h5>開発ステータス・メモ</h5>
-          <ul>
-            <li>
-              GPX,TCXはルートのみの読み込み。(正常に処理されたかは未検証)。POI,
-              ウェイポイントの読み込みについては未定。
-            </li>
-          </ul>
+          <dl>
+            <dt>ルート読み込み対応ファイル形式</dt>
+            <dd>GPX, TCX, CNX</dd>
+            <dt>GPX, TCXに設定されたPOI・ウェイポイントについて</dt>
+            <dd>
+              GPXはルートのみの読み込み。TCXはルートと一部POIを読み込みます。
+            </dd>
+          </dl>
         </section>
         <section id="file-import-wrapper">
           <legend>CNX,GPX,TCXファイルインポート</legend>
@@ -96,7 +111,7 @@
         </section>
         <section id="point-section">
           <h3>ポイント情報</h3>
-
+          マップ上でクリックすると、POI・ウェイポイントを追加できます
           <form id="editor-form" onsubmit="return false;">
             <div id="editor">
               <div id="map-container">
@@ -142,7 +157,9 @@
         <div class="window">
           <label class="close" for="pop-up">×</label>
           <h3>出力結果</h3>
-          <pre class="code"><code></code></pre>
+          <pre class="code"><code id="code-block"></code></pre>
+          <input type="text" placeholder="ファイル名" id="filename-input" />
+          <button id="download-button">ダウンロード</button>
           整形ライブラリ<a href="http://www.eslinstructor.net/vkbeautify/">
             vkbeautify
           </a>
