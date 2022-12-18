@@ -134,6 +134,17 @@ function showOutputPoints() {
     rootDocument = GROBAL.imported;
     // TODO: grobal.imported
     const routeDom = rootDocument.querySelector('Route');
+    if (window.mapController.Distance) {
+      routeDom.querySelector('Distance').innerHTML =
+        window.mapController.Distance;
+    }
+    if (window.mapController.Ascent) {
+      routeDom.querySelector('Ascent').innerHTML = window.mapController.Ascent;
+    }
+    if (window.mapController.Descent) {
+      routeDom.querySelector('Descent').innerHTML =
+        window.mapController.Descnet;
+    }
     if (routeDom.querySelector('PointsCount')) {
       routeDom.removeChild(routeDom.querySelector('PointsCount'));
     }

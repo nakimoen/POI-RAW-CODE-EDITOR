@@ -31,7 +31,9 @@ class MapController {
   #Markers;
   #Map;
   #Events;
-
+  Distance;
+  Ascent;
+  Descent;
   /**
    *
    * @param {string} elementId
@@ -76,6 +78,9 @@ class MapController {
       .on('loaded', function (e) {
         const gpx = e.target;
         instance.#Map.fitBounds(gpx.getBounds());
+        instance.Distance = gpx.get_distance();
+        instance.Ascent = gpx.get_elevation_gain();
+        instance.Descent = gpx.get_elevation_loss();
       })
       .addTo(instance.#Map);
   }

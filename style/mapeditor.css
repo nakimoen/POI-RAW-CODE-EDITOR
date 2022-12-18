@@ -15,9 +15,13 @@ article {
 section#point-section {
   width: 100%;
 }
+#map-container {
+  width: 50%;
+}
 #map {
-  width: 500px;
-  height: 300px;
+  width: 100%;
+  min-height: 40vh;
+  height: 80vh;
 }
 .point-number::before {
   counter-increment: point-num 1;
@@ -25,6 +29,8 @@ section#point-section {
 }
 #point-wrapper {
   width: 500px;
+  height: 80vh;
+  overflow-y: scroll;
 }
 #point-container {
   width: 100%;

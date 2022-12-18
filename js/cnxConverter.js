@@ -211,7 +211,7 @@
     root.appendChild(createElement('TracksCount', data.TracksCount));
     root.appendChild(createElement('Tracks', data.Tracks));
     root.appendChild(createElement('Nav', ''));
-    root.appendChild(createElement('PointsCount'));
+    root.appendChild(createElement('PointsCount', data.Points.length));
     const points = createElement('Points');
     data.Points.forEach((point) => {
       const pointDom = createElement('Point', '');
