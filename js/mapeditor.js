@@ -172,6 +172,36 @@ function showOutputPoints() {
 
 /**
  *
+ * @param {HTMLDivElement} self
+ */
+function movePoint(self) {
+  const direction = self.dataset['dir'];
+  const point = self.closest('.point-box-wrapper');
+  let target;
+  if (direction == 'up') {
+    target = point.previousElementSibling;
+    if (!target) {
+      return;
+    }
+    point.insertAdjacentElement('afterend', target);
+  } else if (direction == 'down') {
+    target = point.nextElementSibling;
+    if (!target) {
+      return;
+    }
+    point.insertAdjacentElement('beforebegin', target);
+  }
+  if (target) {
+    point.animate([{ opacity: 1 }, { opacity: 0 }], {
+      duration: 200,
+      easing: 'ease',
+      direction: 'alternate',
+    });
+  }
+}
+
+/**
+ *
  * @param {HTMLElement} self
  */
 function delPoint(self) {

@@ -22,7 +22,7 @@
   </head>
   <body>
     <header>
-      <h1>igs630でPOIを設定・編集したい<small>ver0.1.8</small></h1>
+      <h1>igs630でPOIを設定・編集したい<small>ver0.1.9</small></h1>
       <div>
         <a href="../">
           <svg
@@ -168,73 +168,83 @@
     </div>
 
     <template id="point-template">
-      <div class="point-box" data-marker-id onclick="onPointBoxClick(this)">
-        <div style="position: relative">
-          <strong class="point-number"></strong>
+      <div class="point-box-wrapper">
+        <div class="point-move-container">
+          <div class="point-move" data-dir="up" onclick="movePoint(this)">
+            ⬆️
+          </div>
+          <div class="point-move" data-dir="down" onclick="movePoint(this)">
+            ⬇️
+          </div>
+        </div>
+        <div class="point-box" data-marker-id onclick="onPointBoxClick(this)">
+          <div style="position: relative">
+            <strong class="point-number"></strong>
+            <label>
+              ポイント名
+              <input
+                class="desc"
+                type="text"
+                placeholder="名称"
+                required
+                onchange="onPointTitleChange(this)"
+              />
+            </label>
+            <button
+              class="del-button"
+              type="button"
+              onclick="delPoint(this)"
+              tabindex="-1"
+            ></button>
+          </div>
+          <hr />
           <label>
-            ポイント名
+            タイプ
+            <select class="type">
+              <option value="0">⭐ウェイポイント</option>
+              <option value="14">🚩集合場所</option>
+              <option value="7">🍴補給場所</option>
+              <option value="9">🚻トイレ</option>
+              <option value="10">サービスポイント</option>
+              <option value="11">🏥救護施設</option>
+              <option value="12">🔧装置エリア</option>
+              <option value="8">ゴミ収集所</option>
+              <optgroup label="スプリント・クライム">
+                <option value="1">スプリント</option>
+                <option value="2">🌋HCクライム</option>
+                <option value="3">🏔️LV1クライム</option>
+                <option value="4">🏔️LV2クライム</option>
+                <option value="5">🏔️LV3クライム</option>
+                <option value="6">🏔️LV4クライム</option>
+              </optgroup>
+            </select>
+          </label>
+          <br />
+          <label>
+            緯度
             <input
-              class="desc"
+              class="lat"
               type="text"
-              placeholder="名称"
+              placeholder="12.1234567"
+              onchange="trimPosition(this)"
+              pattern="^\d{1,}\.\d{7}$"
+              readonly
               required
-              onchange="onPointTitleChange(this)"
             />
           </label>
-          <button
-            class="del-button"
-            type="button"
-            onclick="delPoint(this)"
-            tabindex="-1"
-          ></button>
+          <label>
+            経度
+            <input
+              class="lng"
+              type="text"
+              placeholder="123.1234567"
+              onchange="trimPosition(this)"
+              pattern="^\d{1,}\.\d{7}$"
+              readonly
+              required
+            />
+          </label>
         </div>
-        <hr />
-        <label>
-          タイプ
-          <select class="type">
-            <option value="0">⭐ウェイポイント</option>
-            <option value="14">🚩集合場所</option>
-            <option value="7">🍴補給場所</option>
-            <option value="9">🚻トイレ</option>
-            <option value="10">サービスポイント</option>
-            <option value="11">🏥救護施設</option>
-            <option value="12">🔧装置エリア</option>
-            <option value="8">ゴミ収集所</option>
-            <optgroup label="スプリント・クライム">
-              <option value="1">スプリント</option>
-              <option value="2">🌋HCクライム</option>
-              <option value="3">🏔️LV1クライム</option>
-              <option value="4">🏔️LV2クライム</option>
-              <option value="5">🏔️LV3クライム</option>
-              <option value="6">🏔️LV4クライム</option>
-            </optgroup>
-          </select>
-        </label>
-        <br />
-        <label>
-          緯度
-          <input
-            class="lat"
-            type="text"
-            placeholder="12.1234567"
-            onchange="trimPosition(this)"
-            pattern="^\d{1,}\.\d{7}$"
-            readonly
-            required
-          />
-        </label>
-        <label>
-          経度
-          <input
-            class="lng"
-            type="text"
-            placeholder="123.1234567"
-            onchange="trimPosition(this)"
-            pattern="^\d{1,}\.\d{7}$"
-            readonly
-            required
-          />
-        </label>
       </div>
     </template>
 
