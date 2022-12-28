@@ -79,8 +79,8 @@ class MapController {
         const gpx = e.target;
         instance.#Map.fitBounds(gpx.getBounds());
         instance.Distance = gpx.get_distance();
-        instance.Ascent = gpx.get_elevation_gain();
-        instance.Descent = gpx.get_elevation_loss();
+        instance.Ascent = Math.floor(gpx.get_elevation_gain()) || '';
+        instance.Descent = -Math.floor(gpx.get_elevation_loss()) || '';
       })
       .addTo(instance.#Map);
   }

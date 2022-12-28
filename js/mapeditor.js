@@ -138,12 +138,18 @@ function showOutputPoints() {
       routeDom.querySelector('Distance').innerHTML =
         window.mapController.Distance;
     }
-    if (window.mapController.Ascent) {
+    if (
+      !routeDom.querySelector('Ascent').innerHTML &&
+      window.mapController.Ascent
+    ) {
       routeDom.querySelector('Ascent').innerHTML = window.mapController.Ascent;
     }
-    if (window.mapController.Descent) {
+    if (
+      !routeDom.querySelector('Descent').innerHTML &&
+      window.mapController.Descent
+    ) {
       routeDom.querySelector('Descent').innerHTML =
-        window.mapController.Descnet;
+        window.mapController.Descent;
     }
     if (routeDom.querySelector('PointsCount')) {
       routeDom.removeChild(routeDom.querySelector('PointsCount'));
@@ -156,13 +162,9 @@ function showOutputPoints() {
     routeDom.appendChild(pointsRootDom);
 
     const xmlString = serializer.serializeToString(rootDocument);
-    html = _codeDresser(vkbeautify.xml(xmlString));
+    html = _codeDresser(vkbeautify.xml(xmlString, 2));
   } else {
-    const xmlString = serializer.serializeToString(pointsRootDoc);
-
-    html = _codeDresser(
-      '<PointsCount>' + '\n</PointsCount>\n' + vkbeautify.xml(xmlString)
-    );
+    return alert('ルートデータが読み込めませんでした');
   }
 
   document.querySelector('.overlay > .window > pre > code').innerHTML = html;

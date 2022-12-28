@@ -204,8 +204,8 @@
     root.appendChild(createElement('Id', data.Id));
     root.appendChild(createElement('Distance', data.Distance));
     root.appendChild(createElement('Duration', data.Duration));
-    root.appendChild(createElement('Ascent', data.Ascent));
-    root.appendChild(createElement('Descent', data.Descent));
+    root.appendChild(createElement('Ascent', Math.floor(data.Ascent)));
+    root.appendChild(createElement('Descent', Math.floor(data.Descent)));
     root.appendChild(createElement('Encode', data.Encode));
     root.appendChild(createElement('Lang', data.Lang));
     root.appendChild(createElement('TracksCount', data.TracksCount));
