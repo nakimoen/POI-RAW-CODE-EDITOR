@@ -1,7 +1,7 @@
 const GROBAL = { imported: undefined };
 
 window.mapController.on('addMarker', (e) => {
-  addPoint(e.leaflet_id, e.latlng);
+  addPoint(e.leaflet_id, e.latlng, e.title);
 });
 window.mapController.on('dragendMarker', (e) => {
   const id = e.leaflet_id;
@@ -46,7 +46,6 @@ function _setupRoot(root) {
       setValueIntoDom('lat', lat);
       setValueIntoDom('lng', lng);
       setValueIntoDom('desc', getPointValue(point, 'Descr'));
-      // TODO: in order to get dom, want to use returns of addPoint()
       document.querySelector('.point-box:last-child select.type').value =
         point.querySelector('Type').innerHTML;
     });
@@ -270,7 +269,7 @@ function onPointTitleChange(self) {
  * @param {*} latlng
  * @returns {any|null}
  */
-function addPoint(markerId, latlng) {
+function addPoint(markerId, latlng, title) {
   const templateContent = document.importNode(
     document.querySelector('#point-template').content,
     true
@@ -286,6 +285,10 @@ function addPoint(markerId, latlng) {
     const lng = latlng.lng;
     templateContent.querySelector('.lat').value = lat;
     templateContent.querySelector('.lng').value = lng;
+  }
+
+  if (title) {
+    templateContent.querySelector('.desc').value = title;
   }
   container.appendChild(templateContent);
   return templateContent;

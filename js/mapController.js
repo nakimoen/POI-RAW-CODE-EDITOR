@@ -114,6 +114,7 @@ class MapController {
     this.#Events['addMarker']({
       leaflet_id: marker._leaflet_id,
       latlng: marker.getLatLng(),
+      title: opt.title,
     });
 
     marker.on('dragend', function (e) {
