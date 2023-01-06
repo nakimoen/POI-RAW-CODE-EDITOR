@@ -168,7 +168,7 @@
     </div>
 
     <template id="point-template">
-      <div class="point-box-wrapper">
+      <div class="point-box-wrapper" onclick="onPointBoxClick(this)">
         <div class="point-move-container">
           <div class="point-move" data-dir="up" onclick="movePoint(this)">
             ⬆️
@@ -177,7 +177,7 @@
             ⬇️
           </div>
         </div>
-        <div class="point-box" data-marker-id onclick="onPointBoxClick(this)">
+        <div class="point-box" data-marker-id>
           <div style="position: relative">
             <strong class="point-number"></strong>
             <label>

@@ -6,7 +6,7 @@ window.mapController.on('addMarker', (e) => {
 window.mapController.on('dragendMarker', (e) => {
   const id = e.leaflet_id;
   const pointBox = document.querySelector(
-    '.point-box[data-marker-id ="' + id + '"]'
+    '.point-box-wrapper[data-marker-id ="' + id + '"]'
   );
   pointBox.querySelector('.lat').value = e.latlng.lat;
   pointBox.querySelector('.lng').value = e.latlng.lng;
@@ -22,7 +22,8 @@ function _setupRoot(root) {
     return pointDom.querySelector(tag).innerHTML;
   }
   function setValueIntoDom(cl, value) {
-    document.querySelector('.point-box:last-child input.' + cl).value = value;
+    document.querySelector('.point-box-wrapper:last-child input.' + cl).value =
+      value;
   }
 
   try {
@@ -46,8 +47,9 @@ function _setupRoot(root) {
       setValueIntoDom('lat', lat);
       setValueIntoDom('lng', lng);
       setValueIntoDom('desc', getPointValue(point, 'Descr'));
-      document.querySelector('.point-box:last-child select.type').value =
-        point.querySelector('Type').innerHTML;
+      document.querySelector(
+        '.point-box-wrapper:last-child select.type'
+      ).value = point.querySelector('Type').innerHTML;
     });
     if (lastMarker) {
       window.mapController.getMap().flyTo(lastMarker.getLatLng(), 10);
@@ -206,7 +208,7 @@ function movePoint(self) {
  * @param {HTMLElement} self
  */
 function delPoint(self) {
-  const box = self.closest('.point-box');
+  const box = self.closest('.point-box-wrapper');
   window.mapController.removeMarker(box.dataset['markerId']);
   box.remove();
 }
@@ -259,7 +261,7 @@ function onPointBoxClick(self) {
  */
 function onPointTitleChange(self) {
   const title = self.value;
-  const id = self.closest('.point-box').dataset['markerId'];
+  const id = self.closest('.point-box-wrapper').dataset['markerId'];
   window.mapController.setMarkerPopupContent(id, title);
 }
 
@@ -277,7 +279,8 @@ function addPoint(markerId, latlng, title) {
   const container = document.querySelector('#point-container');
 
   if (markerId) {
-    templateContent.querySelector('.point-box').dataset['markerId'] = markerId;
+    templateContent.querySelector('.point-box-wrapper').dataset['markerId'] =
+      markerId;
   }
 
   if (latlng) {
